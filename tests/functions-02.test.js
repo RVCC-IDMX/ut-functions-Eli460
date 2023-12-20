@@ -1,6 +1,83 @@
 /* eslint-disable no-undef */
-const store = require('../src/functions-02');
+// const store = require('../src/functions-02');
+class Store {
+  constructor() {
+    this.name = 'This Object Store';
+    this.inventory = [
+      { name: 'Bike', price: 100, quantity: 5 },
+      { name: 'TV', price: 200, quantity: 8 },
+      { name: 'Album', price: 10, quantity: 150 },
+      { name: 'Book', price: 5, quantity: 72 },
+      { name: 'Phone', price: 105, quantity: 58 },
+      { name: 'Computer', price: 1000, quantity: 12 },
+      { name: 'Keyboard', price: 25, quantity: 67 },
+      { name: 'Mouse', price: 35, quantity: 93 },
+      { name: 'Speaker', price: 145, quantity: 8 },
+      { name: 'Monitor', price: 175, quantity: 13 },
+      { name: 'Printer', price: 165, quantity: 4 },
+      { name: 'Scanner', price: 149, quantity: 2 },
+    ];
+  }
 
+  getName() {
+    return this.name;
+  }
+
+  getInventory() {
+    return this.inventory;
+  }
+
+  getExpensiveItems(priceThreshold) {
+    return this.inventory.filter((item) => item.price > priceThreshold);
+  }
+
+  getStoreItems() {
+    return this.inventory.map((item) => item.name);
+  }
+
+  isItemInStore(itemName) {
+    return this.getStoreItems().includes(itemName);
+  }
+
+  getItemPrice(itemName) {
+    const item = this.inventory.find((item) => item.name === itemName);
+    return item ? item.price : -1;
+  }
+
+  getItemQuantity(itemName) {
+    const item = this.inventory.find((item) => item.name === itemName);
+    return item ? item.quantity : -1;
+  }
+
+  addItemQuantity(itemName, price, quantity) {
+    const existingItem = this.inventory.find((item) => item.name === itemName);
+
+    if (existingItem) {
+      existingItem.quantity += quantity;
+      return existingItem.quantity;
+    }
+    this.inventory.push({ name: itemName, price, quantity });
+    return quantity;
+  }
+
+  removeItemQuantity(itemName, quantityToRemove) {
+    const existingItem = this.inventory.find((item) => item.name === itemName);
+
+    if (existingItem && existingItem.quantity >= quantityToRemove) {
+      existingItem.quantity -= quantityToRemove;
+      return existingItem.quantity;
+    }
+    return -1;
+  }
+
+  getTotalValue() {
+    return this.inventory.reduce((total, item) => total + item.price * item.quantity, 0);
+  }
+}
+
+module.exports = Store;
+
+module.exports = store;
 test('getName', () => {
   expect(store.getName()).toBe('This Object Store');
 });
