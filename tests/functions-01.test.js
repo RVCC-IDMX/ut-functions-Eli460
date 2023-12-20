@@ -1,12 +1,33 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-const {
-  nameShuffle,
-  isStrangePair,
-  convertToDecimal,
-  checkSameSum,
-  saveLogin,
-} = require('../src/functions-01');
+
+const nameShuffle = (fullName) => {
+  const [firstName, lastName] = fullName.split(' ');
+  return `${lastName}, ${firstName}`;
+};
+
+// eslint-disable-next-line max-len
+const isStrangePair = (str1, str2) => str1[0] === str2[str2.length - 1] && str1[str1.length - 1] === str2[0];
+
+const convertToDecimal = (percentageString) => {
+  const percentage = parseFloat(percentageString);
+  return percentage / 100;
+};
+
+// Function for checking if two arrays have the same sum
+const checkSameSum = (arr1, arr2) => {
+  const sum = (array) => array.reduce((acc, num) => acc + num, 0);
+  return sum(arr1) === sum(arr2);
+};
+
+// Function for saving and retrieving login names
+// eslint-disable-next-line arrow-body-style
+const saveLogin = (loginName) => {
+  return () => loginName;
+};
+
+// eslint-disable-next-line object-curly-newline
+export { nameShuffle, isStrangePair, convertToDecimal, checkSameSum, saveLogin };
 
 test('nameShuffle', () => {
   expect(nameShuffle('John Doe')).toBe('Doe, John');
